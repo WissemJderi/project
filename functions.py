@@ -1,6 +1,15 @@
 import json
 import os
 
+from colorama import Fore, Back, Style
+from art import *
+from colorama import Fore
+
+def greeting(): 
+    app_title = "Focus Note" 
+    print(Fore.RED + text2art(app_title, "big" ))
+    print(Style.RESET_ALL)
+
 def add_note(notes_len):
     title = input("Enter a title: ")
     content = input("Enter note content: ")
@@ -23,7 +32,7 @@ def view_all_notes(notes):
 
 
 def view_one_note(notes):
-    id = input("See a note by it's id")
+    id = int(input("See a note by it's id"))
     print(notes[id + 1])
 
 

@@ -1,5 +1,6 @@
 import sys
 from functions import (
+    greeting,
     add_note,
     view_all_notes,
     view_one_note,
@@ -12,11 +13,10 @@ from colorama import Fore, Back, Style
 from storage import load_notes, save_notes
 import json
 import os
-
+from art import *
 
 def main():
-    print(Fore.RED + "Welcome To FocusNote")
-    print(Style.RESET_ALL)
+    greeting()
     notes = load_notes()
     while True:
         print(
