@@ -5,10 +5,20 @@ from colorama import Fore, Back, Style
 from art import *
 from colorama import Fore
 
-def greeting(): 
-    app_title = "Focus Note" 
-    print(Fore.RED + text2art(app_title, "big" ))
+
+def go_to_menu():
+    while True:
+        user_input = input("Hit Enter to return to the menu. ")
+        if user_input.strip() == "":
+            return True
+        continue
+
+
+def greeting():
+    app_title = "Focus Note"
+    print(Fore.RED + text2art(app_title, "big"))
     print(Style.RESET_ALL)
+
 
 def add_note(notes_len):
     title = input("Enter a title: ")
@@ -21,8 +31,10 @@ def add_note(notes_len):
 
 def view_all_notes(notes):
     print(f"Notes created: {len(notes)} ")
+    if len(notes) == 0:
+        print("No notes found. Go to the menu to add one.")
     for note in notes:
-        
+
         print("----------")
         print(
             f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
@@ -32,16 +44,49 @@ def view_all_notes(notes):
 
 
 def view_one_note(notes):
-    id = int(input("See a note by it's id"))
-    print(notes[id + 1])
+    id = int(input("See a note by it's id: "))
+    note = notes[id - 1]
+    print("----------")
+    print(
+        f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
+    )
+    print("----------")
 
 
-def edit_note():
-    print("Working From edit_note")
+def edit_note(notes):
+    note_id = int(input("Please enter the note id: "))
+    note = notes[note_id - 1]
+    print("----------")
+    print(
+        f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
+    )
+    print("----------")
+    while True:
+        update_note_by = input("Update note? (t = title, c = content): ")
+        if update_note_by == "t":
+            new_data = input("Start typing: ").strip()
+            note["title"] = new_data
+            print(Fore.MAGENTA + "Note successfully edited.")
+            print(Style.RESET_ALL)
+            return note_id, note
+        elif update_note_by == "c":
+            new_data = input("Start typing: ").strip()
+            note["content"] = new_data
+            print(Fore.MAGENTA + "Note successfully edited.")
+            print(Style.RESET_ALL)
+            return note_id, note
+        else:
+            continue
 
 
-def delete_note():
-    print("Working From delete_note")
+def delete_notes(notes):
+    usr_permission = input("Are you sure? (y = yes, n = no) ")
+    if usr_permission == "y":
+        print(Fore.MAGENTA + "All notes have been deleted.")
+        print(Style.RESET_ALL)
+        return []
+    elif usr_permission == "n":
+        return notes
 
 
 def exit_prog():

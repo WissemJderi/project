@@ -5,9 +5,10 @@ from functions import (
     view_all_notes,
     view_one_note,
     edit_note,
-    delete_note,
+    delete_notes,
     exit_prog,
     notes_len,
+    go_to_menu,
 )
 from colorama import Fore, Back, Style
 from storage import load_notes, save_notes
@@ -15,12 +16,13 @@ import json
 import os
 from art import *
 
+
 def main():
     greeting()
     notes = load_notes()
     while True:
         print(
-            "1. Add a note \n2. View all notes \n3. View one note \n4. Edit a note \n5. Delete a note \n6. Exit"
+            "1. Add a note \n2. View all notes \n3. View one note \n4. Edit a note \n5. Delete all notes \n6. Exit"
         )
         user_input = input("Enter a number: ")
         if user_input != "6":
@@ -28,11 +30,23 @@ def main():
                 notes.append(add_note(len(notes)))
                 save_notes(notes)
                 print("Your note has been saved!")
+                go_to_menu()
+
             elif user_input == "2":
                 # print(note)
                 view_all_notes(notes)
+                go_to_menu()
             elif user_input == "3":
                 view_one_note(notes)
+                go_to_menu()
+            elif user_input == "4":
+                id, note = edit_note(notes)
+                notes[id - 1] = note
+                save_notes(notes)
+                go_to_menu()
+            elif user_input == "5":
+                save_notes(delete_notes(notes))
+                go_to_menu()
             continue
         else:
             sys.exit()
