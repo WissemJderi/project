@@ -8,12 +8,15 @@ from functions import (
     exit_prog,
     notes_len,
 )
+from colorama import Fore, Back, Style
 from storage import load_notes, save_notes
 import json
 import os
 
 
 def main():
+    print(Fore.RED + "Welcome To FocusNote")
+    print(Style.RESET_ALL)
     notes = load_notes()
     while True:
         print(

@@ -1,7 +1,6 @@
 import json
 import os
 
-
 def add_note(notes_len):
     title = input("Enter a title: ")
     content = input("Enter note content: ")
