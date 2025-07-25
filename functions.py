@@ -30,9 +30,10 @@ def add_note(notes_len):
 
 
 def view_all_notes(notes):
-    print(f"\nNotes created: {len(notes)} ")
     if len(notes) == 0:
-        print("No notes found. Go to the menu to add one.")
+        print("\nNo notes found. Go to the menu to add one.\n")
+        return
+    print(f"\nNotes created: {len(notes)} ")
     table = []
     for note in notes:
         table.append([note["title"], note["content"], note["id"], note["date"]])
@@ -42,21 +43,17 @@ def view_all_notes(notes):
 def view_one_note(notes):
     id = int(input("See a note by it's id: "))
     note = notes[id - 1]
-    print("----------")
-    print(
-        f"Title: {note["title"]}\nContent: {note["content"]}\nId: {note["id"]}\nDate: {note["date"]}"
-    )
-    print("----------")
+    table = [[note["title"], note["content"], note["id"], note["date"]]]
+    print(tabulate(table, headers=["Title", "Content", "ID", "Created at"], tablefmt="fancy_grid"))
 
 
 def edit_note(notes):
     note_id = int(input("Please enter the note id: "))
     note = notes[note_id - 1]
-    print("----------")
-    print(
-        f"Title: {note["title"]}\nContent: {note["content"]}\nId: {note["id"]}\nDate: {note["date"]}"
-    )
-    print("----------")
+    table = [[note["title"], note["content"], note["id"], note["date"]]]
+    print(tabulate(table, headers=["Title", "Content", "ID", "Created at"], tablefmt="fancy_grid"))
+
+
     while True:
         update_note_by = input("Update note? (t = title, c = content): ")
         if update_note_by == "t":
