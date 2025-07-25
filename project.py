@@ -1,13 +1,10 @@
 import sys
 from functions import (
-    greeting,
     add_note,
     view_all_notes,
     view_one_note,
     edit_note,
     delete_notes,
-    exit_prog,
-    go_to_menu,
     export_as_pdf
 )
 from colorama import Fore, Back, Style
@@ -15,6 +12,22 @@ from storage import load_notes, save_notes
 import json
 import os
 from art import *
+
+def greeting():
+    app_title = "Focus Note"
+    print(Fore.RED + text2art(app_title, "big"))
+    print(Style.RESET_ALL)
+
+def go_to_menu():
+    while True:
+        user_input = input("Hit Enter to return to the menu. ")
+        if user_input.strip() == "":
+            return True
+        continue
+
+def exit_prog():
+    print("\n")
+    sys.exit()
 
 
 def main():

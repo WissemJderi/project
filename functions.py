@@ -8,18 +8,6 @@ from tabulate import tabulate
 from datetime import date
 from fpdf import FPDF
 
-def go_to_menu():
-    while True:
-        user_input = input("Hit Enter to return to the menu. ")
-        if user_input.strip() == "":
-            return True
-        continue
-
-
-def greeting():
-    app_title = "Focus Note"
-    print(Fore.RED + text2art(app_title, "big"))
-    print(Style.RESET_ALL)
 
 
 def add_note(notes_len):
@@ -89,10 +77,6 @@ def delete_notes(notes):
     elif usr_permission == "n":
         return notes
 
-
-def exit_prog():
-    print("\n")
-    sys.exit()
 
 def export_as_pdf(notes):
     class PDF(FPDF):
