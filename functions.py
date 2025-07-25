@@ -4,7 +4,7 @@ import os
 from colorama import Fore, Back, Style
 from art import *
 from colorama import Fore
-
+from tabulate import tabulate
 
 def go_to_menu():
     while True:
@@ -30,17 +30,13 @@ def add_note(notes_len):
 
 
 def view_all_notes(notes):
-    print(f"Notes created: {len(notes)} ")
+    print(f"\nNotes created: {len(notes)} ")
     if len(notes) == 0:
         print("No notes found. Go to the menu to add one.")
+    table = []
     for note in notes:
-
-        print("----------")
-        print(
-            f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
-        )
-        # TODO Add colorama
-        print("----------")
+        table.append([note["title"], note["content"], note["id"], note["date"]])
+    print(tabulate(table, headers=["Title", "Content", "ID", "Created at"], tablefmt="fancy_grid"))
 
 
 def view_one_note(notes):
@@ -48,7 +44,7 @@ def view_one_note(notes):
     note = notes[id - 1]
     print("----------")
     print(
-        f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
+        f"Title: {note["title"]}\nContent: {note["content"]}\nId: {note["id"]}\nDate: {note["date"]}"
     )
     print("----------")
 
@@ -58,7 +54,7 @@ def edit_note(notes):
     note = notes[note_id - 1]
     print("----------")
     print(
-        f"Title: {note["title"]}\nId: {note["id"]}\nContent: {note["content"]}\nDate: {note["date"]}"
+        f"Title: {note["title"]}\nContent: {note["content"]}\nId: {note["id"]}\nDate: {note["date"]}"
     )
     print("----------")
     while True:
