@@ -1,11 +1,11 @@
 import json
 import os
-
+import sys
 from colorama import Fore, Back, Style
 from art import *
 from colorama import Fore
 from tabulate import tabulate
-
+from datetime import date
 def go_to_menu():
     while True:
         user_input = input("Hit Enter to return to the menu. ")
@@ -24,7 +24,7 @@ def add_note(notes_len):
     title = input("Enter a title: ")
     content = input("Enter note content: ")
     id = notes_len + 1
-    time_created = "20-02-2025"
+    time_created = str(date.today())
 
     return {"id": id, "title": title, "date": time_created, "content": content}
 
@@ -83,8 +83,8 @@ def delete_notes(notes):
 
 
 def exit_prog():
-    print("Working From exit_prog")
-
+    print("\n")
+    sys.exit()
 
 def notes_len():
     print("Working From notes_len")
