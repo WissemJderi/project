@@ -43,10 +43,16 @@ def view_all_notes(notes):
 
 
 def view_one_note(notes):
-    id = int(input("See a note by it's id: "))
-    note = notes[id - 1]
-    table = [[note["title"], note["content"], note["id"], note["date"]]]
-    print(tabulate(table, headers=["Title", "Content", "ID", "Created at"], tablefmt="fancy_grid"))
+    while True:
+        id = int(input("See a note by it's id: "))
+        try:
+            note = notes[id - 1]
+            table = [[note["title"], note["content"], note["id"], note["date"]]]
+            print(tabulate(table, headers=["Title", "Content", "ID", "Created at"], tablefmt="fancy_grid"))
+            break
+        except IndexError:
+            print("Please enter a valid number")
+            continue
 
 
 def edit_note(notes):
@@ -77,7 +83,7 @@ def edit_note(notes):
 def delete_notes(notes):
     usr_permission = input("Are you sure? (y = yes, n = no) ")
     if usr_permission == "y":
-        print(Fore.MAGENTA + "All notes have been deleted.")
+        print(Fore.MAGENTA + "All notes have been deleted. Please restart the program")
         print(Style.RESET_ALL)
         return []
     elif usr_permission == "n":
@@ -111,9 +117,10 @@ def export_as_pdf(notes):
     pdf.add_page()
     pdf.set_font("Times", size=18)
     for note in notes:
-        pdf.cell(0, 10, "-----", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, "----------", new_x="LMARGIN", new_y="NEXT")
         pdf.cell(0, 10, f"Title: {note['title']}", new_x="LMARGIN", new_y="NEXT")
         pdf.cell(0, 10, f"Content: {note["content"]}", new_x="LMARGIN", new_y="NEXT")
         pdf.cell(0, 10, f"Created At: {note["date"]}", new_x="LMARGIN", new_y="NEXT")
 
-    pdf.output("new-tuto2.pdf")
+    pdf.output(f"notes_{str(date.today())}")
+    print("Notes successfully exported as PDF.")
