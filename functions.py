@@ -6,6 +6,8 @@ from art import *
 from colorama import Fore
 from tabulate import tabulate
 from datetime import date
+from fpdf import FPDF
+
 def go_to_menu():
     while True:
         user_input = input("Hit Enter to return to the menu. ")
@@ -86,5 +88,32 @@ def exit_prog():
     print("\n")
     sys.exit()
 
-def notes_len():
-    print("Working From notes_len")
+def export_as_pdf(notes):
+    class PDF(FPDF):
+        def header(self):
+            # Setting font: helvetica bold 15
+            pdf.set_font('Times', size=24)
+            # Moving cursor to the right:
+            self.cell(80)
+            # Printing title:
+            self.cell(30, 10, "Focus Note",align="C")
+            # Performing a line break:
+            self.ln(20)
+
+        def footer(self):
+            # Position cursor at 1.5 cm from bottom:
+            self.set_y(-15)
+            # Setting font: helvetica italic 8
+            self.set_font("helvetica", style="I", size=8)
+            # Printing page number:
+            self.cell(0, 10, f"Page {self.page_no()}/{{nb}}", align="C")
+    pdf = PDF()
+    pdf.add_page()
+    pdf.set_font("Times", size=18)
+    for note in notes:
+        pdf.cell(0, 10, "-----", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, f"Title: {note['title']}", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, f"Content: {note["content"]}", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, f"Created At: {note["date"]}", new_x="LMARGIN", new_y="NEXT")
+
+    pdf.output("new-tuto2.pdf")
